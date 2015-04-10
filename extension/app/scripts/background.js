@@ -1,8 +1,8 @@
 'use strict';
 // setDriver(localforage.LOCALSTORAGE);
-localforage.getItem('keys', function(err, value) {
-	console.log(value);
-});
+// localforage.getItem('keys', function(err, value) {
+// 	console.log(value);
+// });
 
 
 // localforage.key(1).then(console.log);
@@ -35,16 +35,7 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
 
 
-// METEOR
-// // Attach DDP to your local app
-// var ddp = new MeteorDdp("ws://localhost:3000/websocket");
 
-// var posts = 0;
-
-// // TEST CONNECTION IS MADE
-// // ddp.connect().done(function() {
-// //   console.log('Connected!');
-// // });
 
 // //Connect to App
 // ddp.connect().then(function(){
@@ -66,17 +57,28 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 // });
 
 // chrome.browserAction.setBadgeText({text: '5'});
-var ddp = new MeteorDdp("ws://localhost:3000/websocket");
 
-var publicCompetition = [];
+var competitionStart = function() {
+	console.log('cometitionStart');
+}
+var competitionAdd = function() {
+	console.log('cometitionAdd');
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, {greeting: "competitionAdd"}, function(response) {
+			console.log(response.farewell);
+		});
+	});
+}
+var competitionRepeat = function() {
+	console.log('cometitionRepeat');
+}
+var competitionStop = function() {
+	console.log('cometitionStop');
+}
 
-ddp.connect().then(function () {
-    ddp.subscribe("competition");
-
-    // ddp.watch("competition", function (changedDoc, message) {
-    //     if (message === "added")
-    //         publicCompetition++;
-    //     if (message === "removed")
-    //         publicCompetition--;
-    // });
-});
+// METEOR
+// var ddp = new MeteorDdp("ws://localhost:3000/websocket");
+// // // TEST CONNECTION IS MADE
+// ddp.connect().done(function() {
+//   console.log('Connected!');
+// });

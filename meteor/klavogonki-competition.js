@@ -10,3 +10,9 @@ if (Meteor.isClient) {
   //   ]
   // });
 }
+
+// Meteor.methods({
+//     getResult : function() {
+//         console.log('getResult');
+//     });
+// });
