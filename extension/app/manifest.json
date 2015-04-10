@@ -1,0 +1,53 @@
+{
+  "name": "Klavogonki competition",
+  "version": "0.0.10",
+  "manifest_version": 2,
+  "description": "App for creating competition on klavogonki.ru",
+  "icons": {
+    "16": "images/icon-16.png",
+    "128": "images/icon-128.png"
+  },
+  "default_locale": "en",
+  "page_action": {
+    "default_icon": {
+      "16": "images/icon-16.png",
+      "19": "images/icon-19.png",
+      "38": "images/icon-38.png"
+    },
+    "default_title": "generator ext",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://klavogonki.ru/*",
+        "https://klavogonki.ru/*",
+        "http://localhost:9000/*"
+      ],
+      "js": [
+        "scripts/jquery.min.js",
+        "bower_components/materialize/dist/js/materialize.min.js",
+        "bower_components/localforage/dist/localforage.min.js",
+        "scripts/meteor-ddp.js",
+        "scripts/contentscript.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "tabs",
+    "history",
+    "storage",
+    "browsingData",
+    // "fileSystem",
+    "management",
+    "http://klavogonki.ru/*",
+    "https://klavogonki.ru/*",
+    "http://localhost:9000/*"
+  ]
+}

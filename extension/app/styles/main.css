@@ -1,0 +1,8 @@
+body {
+	padding: 20px;
+}
+.popup body {
+	display: flex;
+	width: 280px;
+	justify-content: space-around;
+}

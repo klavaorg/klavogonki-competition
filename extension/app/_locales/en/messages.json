@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "generator ext",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Klavogonki challange",
+    "description": "The description of the application"
+  }
+}

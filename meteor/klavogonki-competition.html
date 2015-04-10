@@ -1,0 +1,22 @@
+<!-- simple-todos.html -->
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Todo List</h1>
+    </header>
+
+    <ul>
+      {{#each competitions}}
+        {{> competition}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
+<template name="competition">
+  <li>{{text}}</li>
+</template>
