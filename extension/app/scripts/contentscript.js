@@ -1,39 +1,33 @@
 'use strict';
 
-	// console.clear();
-
-
-// localforage.setItem('publicCompetition', publicCompetition);
-// setDriver(localforage.LOCALSTORAGE);
-// localforage.setItem('keys', 'some value', function(err, value) {
-// 	console.log(value);
-// });
-
-// console.log('\'Hello \'Allo! Content script');
-
-
-// var publicCompetition = [];
-
 // METEOR
-// var ddp = new MeteorDdp("ws://localhost:3000/websocket");
-// // TEST CONNECTION IS MADE
-// ddp.connect().done(function() {
-//   console.log('Connected!');
-// });
-// ddp.connect().then(function () {
-// 	ddp.subscribe("competition");
-// });
-
-// $('#competition-add').click(function(){
-// 	$(this).toggleClass('suenot2');
+var ddp = new MeteorDdp("ws://localhost:3000/websocket");
+// TEST CONNECTION IS MADE
+ddp.connect().then(function() {
+	console.log('Connected!');
+	ddp.subscribe('competitions');
+	// var competitions = ddp.getCollection('competitions');
+	// console.log(ddp);
+	// console.log(ddp.competitions);
+	ddp.watch("competitions", function (changedDoc, message) {
+		console.log(changedDoc);
+		console.log(message);
+	});
+});
+// CREATE COLLECTION
+// var publicCompetitions = new ddp.Collection('competitions', ddp);
+// ddp.subscribe('competitions', function() {
+// 	console.log('Data list starts here:');
+// 	publicCompetitions.find().forEach(function(data){console.log(data)});
 // });
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if (request.greeting == "competitionStart") {
-		console.log('competitionStart');
+		console.log('competitionStart button clicked');
 	};
 	if (request.greeting == "competitionAdd") {
+		console.log('competitionAdd button clicked');
 		var publicCompetition = [];
 		$('#players .player').each(function(){
 			var user = {};
@@ -47,46 +41,33 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			user.carBg = $(this).find('.car td:nth-child(2) .imgcont').css('background');
 			publicCompetition.push(user);
 		});
-		console.log('competitionAdd');
-		// sendResponse({farewell: "goodbye"});
-		// отправляем данные метеору
-        // Meteor.call('reportSpotting',spotting, function(err,res){
-        //     if (err){ 
-        //         console.error(err);
-        //     } else {
+		console.log(publicCompetition);
+		// ddp.subscribe('competitions');
+		// ddp.call('getResult', publicCompetition, function(err,res){
+		// 	if (err){
+		// 		console.error(err);
+		// 	} else {
 
-        //         console.log('server response', res);
+		// 		console.log('server response', res);
 
-        //         Archive.add(message.from);
-        //         showSpottingNoification(res.newSpotting);
+		// 		Archive.add(message.from);
+		// 		showSpottingNoification(res.newSpotting);
 
-        //         sendResponse({ 
-        //             newSpotting : res.newSpotting || ApplicationSettings.alwaysNewSpotting,
-        //             needsClaim : res.needsClaim,
-        //             claimUrl : ApplicationSettings.explorerRegistrationUrl + Identity.getUserId(),
-        //             siteUrl : ApplicationSettings.siteUrl
-        //         });
-        //     }
+		// 		sendResponse({ 
+		// 			newSpotting : res.newSpotting || ApplicationSettings.alwaysNewSpotting,
+		// 			needsClaim : res.needsClaim,
+		// 			claimUrl : ApplicationSettings.explorerRegistrationUrl + Identity.getUserId(),
+		// 			siteUrl : ApplicationSettings.siteUrl
+		// 		});
+		// 	}
 
-        //     console.log(res);
-        // });
+		// 	console.log(res);
+		// });
 	};
 	if (request.greeting == "competitionRepeat") {
-		console.log('competitionRepeat');
+		console.log('competitionRepeat button clicked');
 	};
 	if (request.greeting == "competitionStop") {
-		console.log('competitionStop');
+		console.log('competitionStop button clicked');
 	};
-});
-
-// METEOR
-var ddp = new MeteorDdp("ws://localhost:3000/websocket");
-// // TEST CONNECTION IS MADE
-ddp.connect().done(function() {
-  console.log('Connected!');
-});
-Meteor.call('getResult', function(err, result) {
-  if (result) {
-    return console.log(result);
-  }
 });

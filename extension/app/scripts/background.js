@@ -59,10 +59,15 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 // chrome.browserAction.setBadgeText({text: '5'});
 
 var competitionStart = function() {
-	console.log('cometitionStart');
+	console.log('competitionStart');
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, {greeting: "competitionStart"}, function(response) {
+			console.log(response.farewell);
+		});
+	});
 }
 var competitionAdd = function() {
-	console.log('cometitionAdd');
+	console.log('competitionAdd');
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		chrome.tabs.sendMessage(tabs[0].id, {greeting: "competitionAdd"}, function(response) {
 			console.log(response.farewell);
@@ -70,10 +75,20 @@ var competitionAdd = function() {
 	});
 }
 var competitionRepeat = function() {
-	console.log('cometitionRepeat');
+	console.log('competitionRepeat');
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, {greeting: "competitionRepeat"}, function(response) {
+			console.log(response.farewell);
+		});
+	});
 }
 var competitionStop = function() {
-	console.log('cometitionStop');
+	console.log('competitionStop');
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, {greeting: "competitionStop"}, function(response) {
+			console.log(response.farewell);
+		});
+	});
 }
 
 // METEOR

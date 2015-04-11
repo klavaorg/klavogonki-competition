@@ -1,18 +1,42 @@
-Tasks = new Mongo.Collection("competitions");
+Competitions = new Mongo.Collection("competitions");
 // simple-todos.js
-if (Meteor.isClient) {
-  // This code only runs on the client
-  // Template.body.helpers({
-  //   competitions: [
-  //     { text: "This is task 1" },
-  //     { text: "This is task 2" },
-  //     { text: "This is task 3" }
-  //   ]
-  // });
-}
 
-// Meteor.methods({
-//     getResult : function() {
-//         console.log('getResult');
-//     });
-// });
+
+console.log('Meteor console:');
+Meteor.methods({
+    getResult : function(err, res) {
+        console.log('getResult: ' + res);
+    }
+});
+
+if (Meteor.isServer) {
+	Meteor.publish("competitions", function () {
+	return Competitions.find();
+	});
+
+	if (Competitions.find().count() === 0) {
+		Competitions.insert({
+			title: 'Introducing Telescope',
+			url: 'http://sachagreif.com/introducing-telescope/'
+		});
+
+		Competitions.insert({
+			title: 'Meteor',
+			url: 'http://meteor.com'
+		});
+
+		Competitions.insert({
+			title: 'The Meteor Book',
+			url: 'http://themeteorbook.com'
+		});
+	};
+};
+if (Meteor.isClient) {
+	Meteor.subscribe("competitions");
+
+	Template.body.helpers({
+		competitions: function() {
+			return Meteor.Competitions.find();
+		}
+	});
+};

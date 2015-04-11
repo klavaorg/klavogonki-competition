@@ -1,6 +1,6 @@
 {
   "name": "Klavogonki competition",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "manifest_version": 2,
   "description": "App for creating competition on klavogonki.ru",
   "icons": {
@@ -29,11 +29,7 @@
         "scripts/jquery.min.js",
         "bower_components/materialize/dist/js/materialize.min.js",
         "bower_components/localforage/dist/localforage.min.js",
-        // "scripts/meteor-settings.js",
-        // "scripts/archive.js",
-        // "scripts/identity.js",
         "scripts/meteor-ddp.js",
-        // "scripts/meteor.js",
         "scripts/contentscript.js"
       ],
       "run_at": "document_end",
